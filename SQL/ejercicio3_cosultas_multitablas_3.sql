@@ -44,10 +44,12 @@ WHERE YEAR(order_date) = "1997";
 todos los pedidos que tengan "Konbu"
 */
 
+
 -- Primero pruebo por separado a buscar los productos que sean Konbu, y hayarme el product_id
-SELECT products.product_name, product_id
+SELECT product_id
 FROM products
-WHERE product_name = "Konbu";
+WHERE product_name = "Konbu"
+;
 
 -- Luego busco en order details los order_id que tienen como product_id el que corresponde a Konbu
 SELECT COUNT(DISTINCT order_id)
@@ -58,5 +60,13 @@ WHERE product_id = 13;
 SELECT COUNT(DISTINCT(order_id))
 FROM order_details INNER JOIN products
 WHERE products.product_name = "Konbu";
+
+-- EL resultado final lo hago uniendo las dos consultas en una subconsulta con IN
+SELECT order_id
+FROM order_details
+WHERE product_id IN
+(SELECT product_id
+FROM products
+WHERE product_name = "Konbu")
 
 
