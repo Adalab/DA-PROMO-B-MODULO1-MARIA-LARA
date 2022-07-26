@@ -7,10 +7,10 @@ Mostrad la ciudad a la que pertenecen, el nombre de la empresa y el nombre del c
 Pero importante! No debe haber duplicados en nuestra respuesta.
 */
 -- Nos falta añadir el campo temporal relacion(donde ponemos si es cliente o proveedor) pero es que no me acuerdo de cómo crear ese campo.
-SELECT city, country, company_name, contact_name
+SELECT city, country, company_name, contact_name, "customers" AS Relacion
 FROM customers
 UNION 
-SELECT city, country, company_name, contact_name
+SELECT city, country, company_name, contact_name, "suppliers" AS Relacion
 FROM suppliers;
 
 -- Ejercicio 2:
