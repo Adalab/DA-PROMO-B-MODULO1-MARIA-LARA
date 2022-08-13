@@ -28,14 +28,18 @@ from products
 order by unit_price desc limit 10;
 
 #BONUS
-SELECT max(sum(quantity))
-FROM order_details
-order by quantity desc limit 1;
+
+-- No consigo sacar el product_name, porque no me hace inner join, ni me deja hacer subconsulta, por el group by, o algo así.
+
+SELECT product_id,sum(quantity)
+FROM order_details 
+GROUP BY product_id
+ORDER BY sum(quantity) DESC
+;
 
 
 
 
-
-
-
-
+SELECT product_name
+FROM products
+WHERE product_id = 60;
