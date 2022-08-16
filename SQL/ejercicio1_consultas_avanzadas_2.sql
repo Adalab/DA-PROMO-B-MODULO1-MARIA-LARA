@@ -39,6 +39,16 @@ GROUP BY city
 HAVING numero_empleada >= 4
 ;
 
+#Ejercicio 6
+SELECT order_id, SUM(unit_price * quantity) AS 'cantidad_total',
+CASE 
+	WHEN SUM(unit_price * quantity) > 2000 THEN "Alto" 
+    ELSE "Bajo"
+    END AS 'categoria'
+FROM order_details
+GROUP BY order_id
+;
+
 
 
 
