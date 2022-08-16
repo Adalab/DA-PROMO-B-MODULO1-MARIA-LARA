@@ -31,15 +31,24 @@ order by unit_price desc limit 10;
 
 -- No consigo sacar el product_name, porque no me hace inner join, ni me deja hacer subconsulta, por el group by, o algo así.
 
-SELECT product_id,sum(quantity)
-FROM order_details 
+SELECT order_details.product_id,sum(quantity)
+FROM order_details
 GROUP BY product_id
 ORDER BY sum(quantity) DESC
 ;
 
-
-
-
 SELECT product_name
-FROM products
+FROM products 
 WHERE product_id = 60;
+
+
+-- Esta consulta me devuelve datos erróneos.
+
+SELECT product_name, sum(quantity)
+FROM products JOIN order_details
+WHERE products.product_id =(SELECT order_details.product_id
+FROM order_details
+GROUP BY product_id
+ORDER BY sum(quantity) DESC
+LIMIT 1)
+GROUP BY product_name;
