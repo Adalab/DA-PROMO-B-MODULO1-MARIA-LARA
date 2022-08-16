@@ -13,18 +13,41 @@ UNION
 SELECT city, country, company_name, contact_name, "suppliers" AS Relacion
 FROM suppliers;
 
--- Ejercicio 2:
+-- Ejericicio 2:
+/*
+En este caso, nuestro jefe quiere saber cuantos pedidos ha gestionado "Nancy Davolio", 
+una de nuestras empleadas. Nos pide todos los detalles tramitados por ella.
+*/
+
+-- Esta consulta nos devuelve todos los detalles de los pedidos tramitados por Nancy
+SELECT *
+FROM orders
+WHERE employee_id IN (
+	SELECT employee_id
+	FROM employees
+	WHERE first_name = 'Nancy' AND last_name = 'Davolio');
+
+-- Esta consulta nos devuelve el número de pedidos tramitados por Nancy
+SELECT COUNT(order_id)
+FROM orders
+WHERE employee_id IN (
+	SELECT employee_id
+	FROM employees
+	WHERE first_name = 'Nancy' AND last_name = 'Davolio');
+
+
+
+-- Ejercicio 3:
 /*
 En este caso, nuestro jefe quiere saber cuántas empresas no han comprado en el año 1997.
 */
 
 -- en la primera consulta me devuelve el numero de empresas que no han comprado en 1997
--- en la segunda consulta puedo ver las empresas que han comprado en otros años pero no en 1997
-
 SELECT COUNT(customer_id)
 FROM orders
 WHERE YEAR(order_date) <> "1997";
 
+-- en la segunda consulta puedo ver las empresas que han comprado en otros años pero no en 1997
 SELECT customers.company_name, customers.country
 FROM orders, customers
 WHERE YEAR(order_date) <> "1997";
@@ -38,6 +61,12 @@ WHERE YEAR(order_date) ="1997";
 SELECT YEAR(order_date), customers.company_name, customers.country
 FROM orders, customers
 WHERE YEAR(order_date) = "1997";
+
+-- en esta consulta podemos ver el nombre de las empresas que compraron en 1997, sin repetidos. 
+SELECT DISTINCT customers.company_name, customers.country
+FROM orders, customers
+WHERE YEAR(order_date) = "1997"
+ORDER BY company_name;
 
 -- Ejercicio 4:
 /*
