@@ -30,27 +30,16 @@ ON country  = 'UK' AND orders.order_id = "";
 
 -- Ejercicio 4:
 
-SELECT A.city AS "ciudad_empleada", A.first_name AS "nombre_empleada", A.last_name AS "apellido_empleada", B.city AS "ciudad_jefa", B.first_name AS "nombre_jefa", B.last_name AS "apellido_jefa" 
+SELECT A.employee_id AS "ID_empleado", A.city AS "ciudad_empleada", A.first_name AS "nombre_empleada", A.last_name AS "apellido_empleada", B.city AS "ciudad_jefa", B.first_name AS "nombre_jefa", B.last_name AS "apellido_jefa" 
 FROM employees AS A,  employees AS B
-WHERE A.title <> B.title;
+WHERE A.reports_to = B.employee_id 
+ORDER BY "ID_empleado"
+;
 
 
--- nos falta saber quien es el director, estamos con nuestras pesquisas en lo que sigue... :)
+-- el director es Andrew Fuller porque no aparece, es un reports to NULL
+SELECT * FROM employees WHERE reports_to IS NULL;
 
-SELECT COUNT(employee_id), title
-FROM employees
-GROUP BY title;
-
-
-SELECT A.city AS "ciudad_empleada", A.first_name AS "nombre_empleada", A.last_name AS "apellido_empleada", B.city AS "ciudad_jefa", B.first_name AS "nombre_jefa", B.last_name AS "apellido_jefa" 
-FROM employees AS A,  employees AS B
-WHERE A.title <> B.title;
-
-
-SELECT DISTINCT(title)
-FROM employees;
-
- 
 
  
  
